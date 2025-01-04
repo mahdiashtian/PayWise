@@ -184,3 +184,13 @@ STORAGES = {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
+
+# Broker Configuration
+BROKER_PROTOCOL = env.str('BROKER_PROTOCOL')
+BROKER_USERNAME = env.str('BROKER_USERNAME')
+BROKER_PASSWORD = env.str('BROKER_PASSWORD')
+BROKER_HOST = env.str('BROKER_HOST')
+BROKER_PORT = env.str('BROKER_PORT')
+BROKER_URL = f"{BROKER_PROTOCOL}://{BROKER_USERNAME}:{BROKER_PASSWORD}@{BROKER_HOST}:{BROKER_PORT}"
+
+CELERY_BROKER_URL = BROKER_URL
