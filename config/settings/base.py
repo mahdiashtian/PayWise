@@ -42,7 +42,13 @@ EXTERNAL_APPS = [
     'rest_framework_simplejwt.token_blacklist',
 ]
 
+HIGH_LEVEL_APP = [
+    'channels',
+    'daphne',
+]
+
 INSTALLED_APPS = [
+    *HIGH_LEVEL_APP,
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,7 +88,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = 'config.asgi.application'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -207,3 +213,13 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
+
+# Redis settings for channels
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [(env.str('REDIS_HOST'), env.int('REDIS_PORT'))],
+        },
+    },
+}

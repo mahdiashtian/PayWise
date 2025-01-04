@@ -12,7 +12,7 @@ from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 
 from users.api.v1.serializers import UserSerializer, ChangePasswordSerializer, UserCreateSerializer
 from users.models import User
-from users.security import set_jwt_cookies, set_jwt_access_cookie, unset_jwt_cookies
+from config.security import set_jwt_cookies, set_jwt_access_cookie, unset_jwt_cookies
 
 
 class UserViewSet(ModelViewSet):
