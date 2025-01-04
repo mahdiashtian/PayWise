@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
-from datetime import timedelta
 from pathlib import Path
+
 from environ import Env
 
 # Create env instance
@@ -37,7 +37,9 @@ INTERNAL_APPS = [
 ]
 
 EXTERNAL_APPS = [
-
+    'rest_framework',
+    'storages',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 INSTALLED_APPS = [
@@ -82,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -112,6 +113,15 @@ USE_I18N = True
 
 USE_TZ = True
 
+# MinIO Configuration
+AWS_ACCESS_KEY_ID = env.str('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env.str('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = env.str('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = env.str('AWS_S3_ENDPOINT_URL')
+AWS_S3_ADDRESSING_STYLE = 'path'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = env.str('AWS_DEFAULT_ACL', None)
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
@@ -119,13 +129,12 @@ STATIC_URL = 'static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static_cdn", "static_root")
 
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, "static_cdn", "media_root")
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets")
 ]
+
+MEDIA_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/'
+MEDIA_ROOT = ''
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -163,3 +172,15 @@ LOGGING = {
     }
 }
 
+# User Model
+AUTH_USER_MODEL = 'users.User'
+
+# Static and Media files storage
+STORAGES = {
+    "default": {
+        "BACKEND": 'storages.backends.s3boto3.S3Boto3Storage',
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
