@@ -200,3 +200,10 @@ SMS_FROM = env.str('SMS_FROM')
 SMS_USERNAME = env.str('SMS_USERNAME')
 SMS_PASSWORD = env.str('SMS_PASSWORD')
 
+# Email service Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
