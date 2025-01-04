@@ -33,7 +33,7 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOST')
 
 # Application definition
 INTERNAL_APPS = [
-
+    'users'
 ]
 
 EXTERNAL_APPS = [
