@@ -33,7 +33,9 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOST')
 
 # Application definition
 INTERNAL_APPS = [
-    'users'
+    'users',
+    'warehouse',
+    'informing'
 ]
 
 EXTERNAL_APPS = [
@@ -153,6 +155,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
     'PAGE_SIZE': 11,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 LOG_DIR = f'{BASE_DIR}/logs/'

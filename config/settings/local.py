@@ -15,9 +15,18 @@ DATABASES = {
 # JWT Authentication
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=100),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=100),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=500),
 
-    'AUTH_HEADER_TYPES': ('JWT',),
-
+    'AUTH_HEADER_TYPES': ('Bearer',),
     'JTI_CLAIM': 'jti',
+}
+
+LOCAL_APPS = ['drf_spectacular']
+INSTALLED_APPS += LOCAL_APPS
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'PayWise',
+    'DESCRIPTION': 'A Simple Project',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }

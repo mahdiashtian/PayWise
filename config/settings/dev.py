@@ -25,3 +25,13 @@ SIMPLE_JWT = {
 
     'JTI_CLAIM': 'jti',
 }
+
+DEV_APPS = ['drf_spectacular']
+INSTALLED_APPS += DEV_APPS
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'PayWise',
+    'DESCRIPTION': 'A Simple Project',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
