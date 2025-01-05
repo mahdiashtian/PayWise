@@ -10,7 +10,8 @@ __pycache__/
 .idea/
 
 # Static files
-/static
+**/static/**
+**/static_cdn/**
 
 # Migration files
 **/migrations/**
