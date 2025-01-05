@@ -39,6 +39,7 @@ INTERNAL_APPS = [
 EXTERNAL_APPS = [
     'rest_framework',
     'storages',
+    'django_filters',
     'rest_framework_simplejwt.token_blacklist',
 ]
 
