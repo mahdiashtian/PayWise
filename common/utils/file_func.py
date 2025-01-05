@@ -1,5 +1,8 @@
 import os
 
+from django.conf import settings
+
+from common.utils.clients import S3Client
 from common.utils.string_func import random_string
 
 
@@ -30,3 +33,12 @@ def upload_image_path(instance=None, filename=None):
     model_name = instance.__class__.__name__.lower()
     name, ext = get_file_name(filename)
     return f"{model_name}/{random_string()}/{name}{ext}"
+
+
+def generate_signed_url(file_name, expiration=3600):
+    s3_client = S3Client.get_client()
+    return s3_client.generate_presigned_url(
+        'get_object',
+        Params={'Bucket': settings.AWS_STORAGE_BUCKET_NAME, 'Key': file_name},
+        ExpiresIn=expiration
+    )
